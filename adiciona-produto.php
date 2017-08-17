@@ -4,11 +4,12 @@ include("conecta.php");
 include("banco-produto.php");
 
 
-$nome = $_GET["nome"];
-$preco = $_GET["preco"];
+$nome = $_POST["nome"];
+$preco = $_POST["preco"];
+$descricao = $_POST["descricao"];
 
-if(insereProduto($conexao, $nome, $preco)) { ?>
-    <p class="text-success">O produto <?= $nome; ?>, <?= $preco; ?> adicionado com sucesso!</p>
+if(insereProduto($conexao, $nome, $preco,$descricao)) { ?>
+    <p class="text-success">O produto <?= $nome; ?>, com o valor <?= $preco; ?> adicionado com sucesso!</p>
 <?php } else {
     $msg = mysqli_error($conexao);
 ?>
