@@ -5,7 +5,7 @@ include("banco-categoria.php");
 
 $categorias = listaCategorias($conexao);
 ?>
-<h1>Formulário de cadastro</h1>
+<h1>Alterando Produto</h1>
 <form action="adiciona-produto.php" method="post">
     <table class="table">
         <tr>
@@ -20,13 +20,19 @@ $categorias = listaCategorias($conexao);
             <td>Descrição</td>
             <td><textarea name="descricao" class="form-control"></textarea></td>
         </tr>
-        
+        <tr>
+            <td>Usado</td>
+            <td><input type="checkbox" name="usado">Usado<td>
+        </tr>
          <tr>
             <td>Categoria</td>
                 <td>
+                <select name="categoria_id" class="form-control">   
                 <?php foreach($categorias as $categoria) : ?>
-                    <input type="radio" name="categoria_id" value="<?=$categoria['id']?>"><?=$categoria['nome']?></br>
+                    <option  value="<?=$categoria['id']?>"><?=$categoria['nome']?>
+                    </option>    
                 <?php endforeach ?>
+                </select>  
                 </td>
         </tr>
         <tr>
