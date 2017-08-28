@@ -2,10 +2,13 @@
 include("cabecalho.php"); 
 include("conecta.php");
 include("banco-categoria.php");
+include("logica-usuario.php");
+
+verificaUsuario();
 
 $categorias = listaCategorias($conexao);
 ?>
-<h1>Alterando Produto</h1>
+<h1>Cadastrando Produto</h1>
 <form action="adiciona-produto.php" method="post">
     <table class="table">
         <tr>

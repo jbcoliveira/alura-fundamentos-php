@@ -2,7 +2,9 @@
 include("cabecalho.php");
 include("conecta.php");
 include("banco-produto.php");
+include("logica-usuario.php");
 
+verificaUsuario();
 
 if (array_key_exists("removido", $_GET) && $_GET['removido'] == 'true') {
     ?>
@@ -14,7 +16,6 @@ $produtos = listaProduto($conexao);
 <table class="table table-striped table-bordered">
     <?php
     foreach ($produtos as $produto) :
-        
         ?>
 
         <tr>
@@ -22,8 +23,8 @@ $produtos = listaProduto($conexao);
             <td><?= $produto['preco'] ?></td>
             <td><?= substr($produto['descricao'], 0, 40) ?></td>
             <td><?= $produto['categoria_nome'] ?></td>
-            <td><?= $produto['usado'] == 0? "novo":"usado"; ?></td>
-            <td><a href="produto-altera-formulario.php?id=<?= $produto['id']?>" class="btn btn-primary">alterar</td>
+            <td><?= $produto['usado'] == 0 ? "novo" : "usado"; ?></td>
+            <td><a href="produto-altera-formulario.php?id=<?= $produto['id'] ?>" class="btn btn-primary">alterar</td>
             <td>
                 <form action="remove-produto.php" method="post">
                     <input type="hidden" name="id" value="<?= $produto['id'] ?>" />
