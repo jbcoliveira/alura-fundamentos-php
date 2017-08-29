@@ -4,19 +4,25 @@ include("cabecalho.php");
 include("logica-usuario.php");
 
 
+
 verificaLoginSucesso();
 verificaLogoutSucesso();
 
-if (isset($_GET["falhaDeSeguranca"])) {
-    ?>
-    <p class="alert-danger">Você não tem acesso a essa funcionalidade.</p>
-    <?php
+
+if(isset($_SESSION["danger"])) {
+    mensagem('danger', $_SESSION["danger"]);
+    unset($_SESSION["danger"]);
+}
+
+if(isset($_SESSION["success"])) {
+    mensagem('success', $_SESSION["success"]);
+    unset($_SESSION["success"]);
 }
 
 if (usuarioEstaLogado()) {
+    mensagem('success', 'Você está logado como ' . usuarioLogado() );
     ?>
-    <p class="text-success">Você está logado como <?= usuarioLogado() ?>.
-        <a href="logout.php">Deslogar</a></p>
+         <a href="logout.php">Deslogar</a></p>
     <?php
 } else {
     ?>    

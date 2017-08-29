@@ -18,13 +18,12 @@ if(array_key_exists('usado', $_POST)) {
     $usado = "false";
 }
 
-if(alteraProduto($conexao, $id,$nome, $preco,$descricao,$categoria_id,$usado)) { ?>
-    <p class="text-success">O produto <?= $nome; ?>, com o valor <?= $preco; ?> alterado com sucesso!</p>
-<?php } else {
+if(alteraProduto($conexao, $id,$nome, $preco,$descricao,$categoria_id,$usado)) { 
+   mensagem('success', 'O produto' . $nome . ' com o valor ' . $preco . ' alterado com sucesso!');
+} else {
     $msg = mysqli_error($conexao);
-?>
-    <p class="text-danger">O produto <?= $nome; ?> não foi alterado: <?= $msg ?></p>
-<?php
+
+    mensagem('danger', 'O produto' . $nome . ' não foi alterado. Erro: ' . $msg);
 }
 ?>
 

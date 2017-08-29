@@ -1,3 +1,6 @@
+<?php
+include("logica-mensagens.php");
+?>
 <html>
 <head>
     <title>Minha loja</title>

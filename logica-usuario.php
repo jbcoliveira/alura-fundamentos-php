@@ -4,7 +4,8 @@ session_start();
 
 function verificaUsuario() {
     if (!isset($_SESSION["usuario_logado"])) {
-        header("Location: index.php?falhaDeSeguranca=true");
+        $_SESSION["danger"] = "Você não tem acesso a esta funcionalidade.";
+        header("Location: index.php");
         die();
     }
 }
@@ -25,27 +26,23 @@ function logaUsuario($email) {
 
 function verificaLoginSucesso() {
     if (isset($_GET["login"]) && $_GET["login"] == true) {
-        ?>
-        <p class="alert-success">Logado com sucesso!</p>
-        <?php
+        mensagem('success', 'Logado com sucesso!');        
 
     } elseif (isset($_GET["login"]) && $_GET["login"] == false) {
-        ?>
-        <p class="alert-danger">Usuário ou senha inválida!</p>
-        <?php
-
+         mensagem('danger', 'Usuário ou senha inválida!');
+      
     }
 }
 
 function logout() {
     session_destroy();
+    session_start();
 }
 
 function verificaLogoutSucesso() {
     if (isset($_GET["logout"]) && $_GET["logout"] == true) {
-        ?>
-        <p class="alert-danger">Deslogado com sucesso</p>
-        <?php
+         mensagem('danger', 'Deslogado com sucesso');
+        
 
     }
 }
