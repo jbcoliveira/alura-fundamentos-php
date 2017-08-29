@@ -17,3 +17,8 @@ echo "Host information: " . mysqli_get_host_info($link) . PHP_EOL;
 
 mysqli_close($conexao);
 */
+
+function escapeQuery($conexao,$query) {
+    
+    return mysqli_real_escape_string($conexao, $query);
+}

@@ -1,5 +1,5 @@
 <?php
-
+require_once("conecta.php");
 function listaProduto($conexao) {
     $produtos = array();
     $resultado = mysqli_query($conexao, "select p.*,c.nome as categoria_nome from produtos p join categorias c"
@@ -14,9 +14,10 @@ function listaProduto($conexao) {
 
 function insereProduto($conexao, $nome, $preco,$descricao,$categoria_id,$usado) {
     $query = "insert into produtos (nome, preco, descricao,categoria_id,usado) values "
-            . "('{$nome}', {$preco}, '{$descricao}' , {$categoria_id} , {$usado})";
+            . "('".escapeQuery($conexao,$nome)."', ".escapeQuery($conexao,$preco).", '".escapeQuery($conexao,$descricao)."' , {$categoria_id} , {$usado})";
     return mysqli_query($conexao, $query);
 }
+
 
 function removeProduto($conexao,$id) {
     $query = "delete from produtos where id = {$id}";
@@ -30,7 +31,8 @@ function buscaProduto($conexao,$id) {
 }
 
 function alteraProduto($conexao, $id,$nome, $preco,$descricao,$categoria_id,$usado) {
-    $query = "UPDATE produtos set nome= '{$nome}', preco={$preco}, descricao='{$descricao}', categoria_id={$categoria_id}, usado={$usado} "
+    $query = "UPDATE produtos set nome= '".escapeQuery($conexao,$nome)."', preco=".escapeQuery($conexao,$preco).", "
+            . " descricao='".escapeQuery($conexao,$descricao)."', categoria_id={$categoria_id}, usado={$usado} "
             . "where id = {$id} ";
     return mysqli_query($conexao, $query);
 }

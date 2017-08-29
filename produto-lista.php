@@ -1,15 +1,10 @@
 <?php
-include("cabecalho.php");
-include("conecta.php");
-include("banco-produto.php");
-include("logica-usuario.php");
+require_once("cabecalho.php");
+require_once("banco-produto.php");
+require_once("logica-usuario.php");
 
 verificaUsuario();
 
-if(isset($_SESSION["success"])) {
-    mensagem('success', $_SESSION["success"]);
-    unset($_SESSION["success"]);
-}
 $produtos = listaProduto($conexao);
 ?>
 <table class="table table-striped table-bordered">

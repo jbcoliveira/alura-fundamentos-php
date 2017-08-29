@@ -1,23 +1,9 @@
 <?php
-include("cabecalho.php");
-
-include("logica-usuario.php");
-
-
+require_once("cabecalho.php");
+require_once("logica-usuario.php");
 
 verificaLoginSucesso();
 verificaLogoutSucesso();
-
-
-if(isset($_SESSION["danger"])) {
-    mensagem('danger', $_SESSION["danger"]);
-    unset($_SESSION["danger"]);
-}
-
-if(isset($_SESSION["success"])) {
-    mensagem('success', $_SESSION["success"]);
-    unset($_SESSION["success"]);
-}
 
 if (usuarioEstaLogado()) {
     mensagem('success', 'Você está logado como ' . usuarioLogado() );
