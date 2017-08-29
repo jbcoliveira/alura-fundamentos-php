@@ -4,9 +4,9 @@ $nome = $_POST["nome"];
 $email = $_POST["email"];
 $mensagem = $_POST["mensagem"];
 
-require_once 'phpMailer/PHPMailer.php';
-require_once 'phpMailer/SMTP.php';
-require_once 'phpMailer/Exception.php';
+require_once 'vendors/phpMailer/PHPMailer.php';
+require_once 'vendors/phpMailer/SMTP.php';
+require_once 'vendors/phpMailer/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
