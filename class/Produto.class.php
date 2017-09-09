@@ -12,12 +12,59 @@
  * @author jboliveira
  */
 class Produto {
-    public $nome;
-    public $preco;
-    public $descricao;
-    public $categoria_id;
-    public $usado;
-            
-            
-            
+
+    private $nome;
+    private $preco;
+    private $descricao;
+    private $categoria;
+    private $usado;
+
+    function getNome() {
+        return $this->nome;
+    }
+
+    function getPreco() {
+        return $this->preco;
+    }
+
+    function getDescricao() {
+        return $this->descricao;
+    }
+
+    function getCategoria() {
+        return $this->categoria;
+    }
+
+    function getUsado() {
+        return $this->usado;
+    }
+
+    function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    function setPreco($preco) {
+        $this->preco = $preco;
+    }
+
+    function setDescricao($descricao) {
+        $this->descricao = $descricao;
+    }
+
+    function setCategoria($categoria) {
+        $this->categoria = $categoria;
+    }
+
+    function setUsado($usado) {
+        $this->usado = $usado;
+    }
+
+    public function precoComDesconto($valor = 0.1) {
+        if ($valor > 0 && $valor <= 0.5) {
+            return $this->preco - ($this->preco * $valor);
+        } else {
+            return $this->preco;
+        }
+    }
+
 }
