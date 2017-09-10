@@ -10,12 +10,12 @@ verificaUsuario();
 $categorias = listaCategorias($conexao);
 $id = $_GET["id"];
 $produto = buscaProduto($conexao,$id);
-$checked =  $produto->usado  == 1 ? "checked='checked'":"";
+$checked =  $produto->getUsado()  == 1 ? "checked='checked'":"";
 
 ?>
 <h1>Formulário de cadastro</h1>
 <form action="altera-produto.php" method="post">
-    <input type="hidden" name="id" value="<?= $produto->id ?>" />
+    <input type="hidden" name="id" value="<?= $produto->getId() ?>" />
     <table class="table">
         
         <?php include("produto-formulario-base.php"); ?>

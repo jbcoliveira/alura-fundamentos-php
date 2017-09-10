@@ -13,11 +13,16 @@
  */
 class Produto {
 
+    private $id;
     private $nome;
     private $preco;
     private $descricao;
     private $categoria;
     private $usado;
+
+    function getId() {
+        return $this->id;
+    }
 
     function getNome() {
         return $this->nome;
@@ -37,6 +42,10 @@ class Produto {
 
     function getUsado() {
         return $this->usado;
+    }
+
+    function setId($id) {
+        $this->id = $id;
     }
 
     function setNome($nome) {
