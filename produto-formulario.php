@@ -2,16 +2,13 @@
 require_once("cabecalho.php"); 
 require_once("banco-categoria.php");
 require_once("logica-usuario.php");
-require_once("class/Produto.class.php");
-require_once("class/Categoria.class.php");
 
 
 verificaUsuario();
 $categoria = new Categoria();
-$categoria->id = 1;
+$categoria->setId(1);
 
-$produto = new Produto();
-$produto->categoria = $categoria;
+$produto = new Produto("","","",$categoria,"");
 
 $categorias = listaCategorias($conexao);
 $checked = "";

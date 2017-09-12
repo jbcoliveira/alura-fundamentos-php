@@ -8,29 +8,25 @@ require_once("class/Categoria.class.php");
 
 verificaUsuario();
 
-$produto = new Produto();
-$produto->nome = $_POST['nome'];
-$produto->preco = $_POST['preco'];
-$produto->descricao = $_POST['descricao'];
+
+$nome = $_POST['nome'];
+$preco = $_POST['preco'];
+$descricao = $_POST['descricao'];
 
 $categoria = new Categoria();
-$categoria->id = $_POST['categoria_id'];
-$produto->categoria = $categoria;
+$categoria->setId($_POST['categoria_id']);
+$categoria = $categoria;
 
-array_key_exists('usado', $_POST) == true ? $produto->usado = "true": $produto->usado = "false";
-/*
-if (array_key_exists('usado', $_POST)) {
-    $usado = "true";
-} else {
-    $produto-> = $_POST[''];
-}
-*/
+array_key_exists('usado', $_POST) == true ? $usado = "true": $usado = "false";
+
+$produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+
 if (insereProduto($conexao, $produto)) {
-    mensagem('success', 'O produto' . $produto->nome . ' com o valor ' . $produto->preco . ' adicionado com sucesso!');
+    mensagem('success', 'O produto' . $produto->getNome() . ' com o valor ' . $produto->getPreco() . ' adicionado com sucesso!');
 } else {
     $msg = mysqli_error($conexao);
 
-    mensagem('danger', 'O produto' . $produto->nome . ' não foi adicionado. Erro: ' . $msg);
+    mensagem('danger', 'O produto' . $nome . ' não foi adicionado. Erro: ' . $msg);
 }
 ?>
 

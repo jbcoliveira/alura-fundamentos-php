@@ -1,8 +1,7 @@
 <?php
 
 require_once("conecta.php");
-require_once("class/Produto.class.php");
-require_once("class/Categoria.class.php");
+
 
 function listaProduto($conexao) {
     $produtos = array();
@@ -14,16 +13,14 @@ function listaProduto($conexao) {
     while ($produto_array = mysqli_fetch_assoc($resultado)) {
         $categoria = new Categoria();
         $categoria->setNome($produto_array['categoria_nome']);
-
-
-        $produto = new Produto();
+        
+        $nome = $produto_array['nome'];
+        $preco = $produto_array['preco'];
+        $descricao = $produto_array['descricao'];
+        $usado = $produto_array['usado'];
+                
+        $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
         $produto->setId($produto_array['id']);
-        $produto->setNome($produto_array['nome']);
-        $produto->setPreco($produto_array['preco']);
-        $produto->setDescricao($produto_array['descricao']);
-        $produto->setCategoria($categoria);
-        $produto->setUsado($produto_array['usado']);
-
 
         array_push($produtos, $produto);
     }
@@ -33,9 +30,9 @@ function listaProduto($conexao) {
 
 function insereProduto($conexao, Produto $produto) {
     $query = "insert into produtos (nome, preco, descricao,categoria_id,usado) values "
-            . "('" . escapeQuery($conexao, $produto->nome) . "', " . escapeQuery($conexao, $produto->preco) . ", "
-            . "'" . escapeQuery($conexao, $produto->descricao) . "' , {$produto->categoria->id} , "
-            . "{$produto->usado})";
+            . "('" . escapeQuery($conexao, $produto->getNome()) . "', " . escapeQuery($conexao, $produto->getPreco()) . ", "
+            . "'" . escapeQuery($conexao, $produto->getDescricao()) . "' , {$produto->getCategoria()->getId()} , "
+            . "{$produto->getUsado()})";
     return mysqli_query($conexao, $query);
 }
 
@@ -53,13 +50,14 @@ function buscaProduto($conexao, $id) {
     $categoria = new Categoria();
     $categoria->setId($produto_array['categoria_id']);
 
-    $produto = new Produto();
+    $nome = $produto_array['nome'];
+    $preco = $produto_array['preco'];
+    $descricao = $produto_array['descricao'];
+    $usado = $produto_array['usado'];
+
+    $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
     $produto->setId($produto_array['id']);
-    $produto->setNome($produto_array['nome']);
-    $produto->setPreco($produto_array['preco']);
-    $produto->setDescricao($produto_array['descricao']);
-    $produto->setCategoria($categoria);
-    $produto->setUsado($produto_array['usado']);
+
 
     return $produto;
 }

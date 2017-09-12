@@ -1,4 +1,9 @@
+<?php
+spl_autoload_register(function($nomeDaClasse) {
+    require_once("class/".$nomeDaClasse.".class.php");
+});
 
+?>
 <html>
 <head>
     <title>Minha loja</title>
