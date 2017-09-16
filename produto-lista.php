@@ -20,6 +20,12 @@ $produtos = $produtoDao->listaProduto();
             <td><?= substr($produto->getDescricao(), 0, 40) ?></td>
             <td><?= $produto->getCategoria()->getNome() ?></td>
             <td><?= $produto->getUsado() == 0 ? "novo" : "usado"; ?></td>
+            <td><?php
+                
+                if ($produto->temIsbn()) {
+                    echo "ISBN: " . $produto->getIsbn();
+                }
+                ?></td>
             <td><a href="produto-altera-formulario.php?id=<?= $produto->getId() ?>" 
                    class="btn btn-primary">alterar</td>
             <td>

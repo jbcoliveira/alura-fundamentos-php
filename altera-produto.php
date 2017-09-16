@@ -11,10 +11,14 @@ $categoria->setId($_POST['categoria_id']);
 $nome = $_POST['nome'];
 $preco = $_POST['preco'];
 $descricao = $_POST['descricao'];
+$isbn = $_POST['isbn'];
+$tipoProduto = $_POST['tipoProduto'];
 
 $categoria = new Categoria();
 $categoria->setId($_POST['categoria_id']);
 $categoria = $categoria;
+
+
 
 array_key_exists('usado', $_POST) == true ? $usado = "true": $usado = "false";
 
