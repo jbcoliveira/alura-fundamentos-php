@@ -8,25 +8,18 @@ require_once("class/Categoria.class.php");
 
 verificaUsuario();
 
-
-$nome = $_POST['nome'];
-$preco = $_POST['preco'];
-$descricao = $_POST['descricao'];
-$isbn = $_POST['isbn'];
 $tipoProduto = $_POST['tipoProduto'];
+$categoria_id = $_POST['categoria_id'];
 
-$categoria = new Categoria();
-$categoria->setId($_POST['categoria_id']);
-$categoria = $categoria;
+
+$factory = new ProdutoFactory();
+$produto = $factory->criaPor($tipoProduto, $_POST);
+$produto->atualizaBaseadoEm($_POST);
+
+$produto->getCategoria()->setId($_POST['categoria_id']);
 
 array_key_exists('usado', $_POST) == true ? $usado = "true" : $usado = "false";
-
-if ($tipoProduto == "Livro") {
-    $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
-    $produto->setIsbn($isbn);
-} else {
-    $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
-}
+$produto->setUsado($usado);
 
 $produto->setTipoProduto($tipoProduto);
 

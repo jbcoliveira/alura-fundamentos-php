@@ -31,8 +31,8 @@ class ProdutoDAO {
                 . " )";
         return mysqli_query($this->conexao, $query);
     }
-    
-        function alteraProduto(Produto $produto) {
+
+    function alteraProduto(Produto $produto) {
         $isbn = "";
         if ($produto->getTipoProduto() == "Livro") {
             if (get_class($produto) == "Livro") {
@@ -55,8 +55,7 @@ class ProdutoDAO {
         $resultado = mysqli_query($this->conexao, $query);
     }
 
-    
-        function listaProduto() {
+    function listaProduto() {
         $produtos = array();
 
         $resultado = mysqli_query($this->conexao, "select p.*,c.nome as categoria_nome "
@@ -67,21 +66,18 @@ class ProdutoDAO {
             $categoria = new Categoria();
             $categoria->setNome($produto_array['categoria_nome']);
 
-            $nome = $produto_array['nome'];
-            $preco = $produto_array['preco'];
-            $descricao = $produto_array['descricao'];
-            $usado = $produto_array['usado'];
-
             $tipoProduto = $produto_array['tipoProduto'];
-            $isbn = $produto_array['isbn'];
 
-            if ($tipoProduto == "Livro") {
-                $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
-                $produto->setIsbn($isbn);
-            } else {
-                $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+            $factory = new ProdutoFactory();
+            $produto = $factory->criaPor($tipoProduto, $produto_array);
+
+            if ($tipoProduto == "LivroFisico") {
+                //$produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
+                $produto->setIsbn($produto_array['isbn']);
+            } elseif ($tipoProduto == "Ebook") {
+                $produto->setWatermark($produto_array['waterMark']);
             }
-        
+
             $produto->setId($produto_array['id']);
 
             array_push($produtos, $produto);
@@ -89,7 +85,7 @@ class ProdutoDAO {
 
         return $produtos;
     }
-    
+
     function buscaProduto($id) {
         $query = "select * from produtos where id = {$id}";
         $resultado = mysqli_query($this->conexao, $query);
@@ -105,7 +101,7 @@ class ProdutoDAO {
         $usado = $produto_array['usado'];
         $tipoProduto = $produto_array['tipoProduto'];
         $isbn = $produto_array['isbn'];
-        
+
         if ($tipoProduto == "Livro") {
             $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
             $produto->setIsbn($isbn);
@@ -118,7 +114,5 @@ class ProdutoDAO {
 
         return $produto;
     }
-
-
 
 }
