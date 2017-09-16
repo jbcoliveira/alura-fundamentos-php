@@ -7,9 +7,11 @@ require_once("logica-usuario.php");
 
 verificaUsuario();
 
-$categorias = listaCategorias($conexao);
+$produtoDao = new ProdutoDAO($conexao);
+$categoriaDao = new CategoriaDAO($conexao);
+$categorias = $categoriaDao->listaCategorias();
 $id = $_GET["id"];
-$produto = buscaProduto($conexao,$id);
+$produto = $produtoDao->buscaProduto($id);
 $checked =  $produto->getUsado()  == 1 ? "checked='checked'":"";
 
 ?>

@@ -1,8 +1,10 @@
 <?php 
+require_once("cabecalho.php");
 require_once ("banco-usuario.php");
 require_once("logica-usuario.php");
 
-$usuario = buscaUsuario($conexao, $_POST["email"], $_POST["senha"]);
+$usuarioDao = new UsuarioDAO($conexao);
+$usuario = $usuarioDao->buscaUsuario( $_POST["email"], $_POST["senha"]);
 
 if($usuario == null) {
 //Falha ao logar    

@@ -1,7 +1,13 @@
 <?php
 
-
-function listaProduto($conexao) {
+class ProdutoDAO {
+    private $conexao;
+    
+    function __construct($conexao) {
+        $this->conexao = $conexao;
+    }
+    
+    function listaProduto($conexao) {
     $produtos = array();
 
     $resultado = mysqli_query($conexao, "select p.*,c.nome as categoria_nome "
@@ -67,4 +73,7 @@ function alteraProduto($conexao, Produto $produto) {
             . "categoria_id={$produto->getCategoria()->getId()}, usado={$produto->getUsado()} "
             . "where id = {$produto->getId()} ";
     return mysqli_query($conexao, $query);
+}
+
+
 }

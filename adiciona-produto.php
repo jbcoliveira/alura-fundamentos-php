@@ -21,10 +21,12 @@ array_key_exists('usado', $_POST) == true ? $usado = "true": $usado = "false";
 
 $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
 
-if (insereProduto($conexao, $produto)) {
+$produtoDao = new ProdutoDao($conexao);
+
+if ($produtoDao->insereProduto($produto)) {
     mensagem('success', 'O produto' . $produto->getNome() . ' com o valor ' . $produto->getPreco() . ' adicionado com sucesso!');
 } else {
-    $msg = mysqli_error($conexao);
+    $msg = mysqli_error($produtoDao->conexao);
 
     mensagem('danger', 'O produto' . $nome . ' não foi adicionado. Erro: ' . $msg);
 }

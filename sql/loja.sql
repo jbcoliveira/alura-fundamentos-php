@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 12, 2017 at 01:02 PM
+-- Generation Time: Aug 27, 2017 at 05:10 PM
 -- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,10 +40,7 @@ CREATE TABLE `categorias` (
 INSERT INTO `categorias` (`id`, `nome`) VALUES
 (1, 'esporte'),
 (2, 'escolar'),
-(3, 'mobilidade'),
-(4, 'programação'),
-(5, 'guloseimas'),
-(6, 'infraesturura');
+(3, 'mobilidade');
 
 -- --------------------------------------------------------
 
@@ -65,10 +62,11 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `preco`, `descricao`, `categoria_id`, `usado`) VALUES
-(18, 'Livro PHP II', '25.00', 'Livro PHP II usado', 4, 1),
-(19, 'Livro PHP I', '31.00', 'Livro PHP I. Orientação a Objetos', 4, 0),
-(20, 'Linux', '120.00', 'Livro Linux do Pinguim', 6, 0),
-(21, 'Bolo de chocolate', '5.00', 'Bolo de chocolate mordido com cobertura de avelãs', 5, 1);
+(4, 'lapis', '1.00', 'descricao do lapis', 1, 1),
+(5, 'chocolate ao leite', '1.00', 'chocolate ao leite gostoso', 1, 0),
+(6, 'Prancha de surfe', '100.00', 'Prancha de surfe', 1, 0),
+(7, 'prancha de surfe', '2.00', 'minha prancha de surfe', 2, 1),
+(11, 'produto usado', '12.00', 'um produto usado qualquer', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -119,20 +117,17 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

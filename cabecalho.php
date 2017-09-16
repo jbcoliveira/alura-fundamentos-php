@@ -1,7 +1,14 @@
 <?php
+
+
 spl_autoload_register(function($nomeDaClasse) {
     require_once("class/".$nomeDaClasse.".class.php");
 });
+
+require_once("logica-mensagens.php");
+require_once("conecta.php");
+
+
 
 ?>
 <html>
@@ -33,10 +40,6 @@ spl_autoload_register(function($nomeDaClasse) {
     <div class="principal">
         
 <?php
-require_once("logica-mensagens.php");
-
 mostraAlerta("danger");
 mostraAlerta("success");
-
-
 ?>
