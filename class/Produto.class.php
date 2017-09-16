@@ -19,6 +19,7 @@ class Produto {
     private $descricao;
     private $categoria;
     private $usado;
+    private $tipoProduto;
 
     function __construct($nome, $preco, $descricao, Categoria $categoria, $usado) {
         $this->nome = $nome;
@@ -59,6 +60,14 @@ class Produto {
     function setId($id) {
         $this->id = $id;
     }
+    
+    public function getTipoProduto() {
+        return $this->tipoProduto;
+    }   
+
+    public function setTipoProduto($tipoProduto) {
+        $this->tipoProduto = $tipoProduto;
+    }
 
     public function precoComDesconto($valor = 0.1) {
         if ($valor > 0 && $valor <= 0.5) {
@@ -66,6 +75,13 @@ class Produto {
         } else {
             return $this->preco;
         }
+    }
+    
+    public function temIsbn() {
+        
+        return $this instanceof Livro;
+        
+        
     }
 
 }
