@@ -14,19 +14,27 @@ class ProdutoDAO {
 
     function insereProduto(Produto $produto) {
         $isbn = "";
-        if ($produto->getTipoProduto() == "Livro") {
-            if (get_class($produto) == "Livro") {
-                $isbn = $produto->getIsbn($isbn);
-            }
+        $watermark = "";
+        $taxaImpressao = "";
+        if ($produto->temIsbn()) {
+            $isbn = $produto->getIsbn();
+        }
+        if (get_class($produto) == "LivroFisico") {
+            $taxaImpressao = $produto->getTaxaImpressao();
+        }
+        if (get_class($produto) == "Ebook") {
+            $watermark = $produto->getWaterMark();
         }
 
-        $query = "insert into produtos (nome, preco, descricao,categoria_id,usado,isbn,tipoProduto) values "
+        $query = "insert into produtos (nome, preco, descricao,categoria_id,usado,isbn,watermark,taxaImpressao,tipoProduto) values "
                 . "('" . escapeQuery($this->conexao, $produto->getNome()) . "', "
                 . "" . escapeQuery($this->conexao, $produto->getPreco()) . ", "
                 . "'" . escapeQuery($this->conexao, $produto->getDescricao()) . "' , "
                 . "{$produto->getCategoria()->getId()} , "
                 . "{$produto->getUsado()} ,"
                 . "'" . escapeQuery($this->conexao, $isbn) . "', "
+                . "'" . escapeQuery($this->conexao, $watermark) . "', "
+                . "'" . escapeQuery($this->conexao, $taxaImpressao) . "', "
                 . "'" . escapeQuery($this->conexao, $produto->getTipoProduto()) . "' "
                 . " )";
         return mysqli_query($this->conexao, $query);
@@ -34,17 +42,24 @@ class ProdutoDAO {
 
     function alteraProduto(Produto $produto) {
         $isbn = "";
-        if ($produto->getTipoProduto() == "Livro") {
-            if (get_class($produto) == "Livro") {
-                $isbn = $produto->getIsbn($isbn);
-            }
+        $watermark = "";
+        $taxaImpressao = "";
+        if ($produto->temIsbn()) {
+            $isbn = $produto->getIsbn();
         }
-
+        if (get_class($produto) == "LivroFisico") {
+            $taxaImpressao = $produto->getTaxaImpressao();
+        }
+        if (get_class($produto) == "Ebook") {
+            $watermark = $produto->getWaterMark();
+        }
         $query = "UPDATE produtos set nome= '" . escapeQuery($this->conexao, $produto->getNome()) . "', "
                 . " preco=" . escapeQuery($this->conexao, $produto->getPreco()) . ", "
                 . " descricao='" . escapeQuery($this->conexao, $produto->getDescricao()) . "', "
                 . " categoria_id={$produto->getCategoria()->getId()}, usado={$produto->getUsado()} ,"
                 . " isbn='" . escapeQuery($this->conexao, $isbn) . "', "
+                . " watermark='" . escapeQuery($this->conexao, $watermark) . "', "
+                . " taxaImpressao='" . escapeQuery($this->conexao, $taxaImpressao) . "', "
                 . " tipoProduto='" . escapeQuery($this->conexao, $produto->getTipoProduto()) . "', "
                 . "where id = {$produto->getId()} ";
         return mysqli_query($this->conexao, $query);
@@ -70,10 +85,15 @@ class ProdutoDAO {
 
             $factory = new ProdutoFactory();
             $produto = $factory->criaPor($tipoProduto, $produto_array);
+            $produto->setTipoProduto($tipoProduto);
 
+            if ($produto->temIsbn()) {
+               $produto->setIsbn($produto_array['isbn']);
+            }
+            
             if ($tipoProduto == "LivroFisico") {
-                //$produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
-                $produto->setIsbn($produto_array['isbn']);
+                $produto->setTaxaImpressao($produto_array['taxaImpressao']);
+                
             } elseif ($tipoProduto == "Ebook") {
                 $produto->setWatermark($produto_array['waterMark']);
             }

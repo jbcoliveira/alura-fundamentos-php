@@ -11,7 +11,7 @@ $produtos = $produtoDao->listaProduto();
 <table class="table table-striped table-bordered">
     <?php
     foreach ($produtos as $produto) :
-        ?>
+        $tipoProduto = $produto->getTipoProduto();        ?>
 
         <tr>
             <td><?= $produto->getNome() ?></td>
@@ -20,12 +20,23 @@ $produtos = $produtoDao->listaProduto();
             <td><?= substr($produto->getDescricao(), 0, 40) ?></td>
             <td><?= $produto->getCategoria()->getNome() ?></td>
             <td><?= $produto->getUsado() == 0 ? "novo" : "usado"; ?></td>
+
+            <td><?= $tipoProduto ?></td>
             <td><?php
-                
                 if ($produto->temIsbn()) {
                     echo "ISBN: " . $produto->getIsbn();
                 }
-                ?></td>
+                ?>
+            </td>
+
+            <td><?php
+                if ($tipoProduto == "LivroFisico") {
+                    echo "Taxa Impressão: " . $produto->getTaxaImpressao();
+                } elseif ($tipoProduto == "Ebook") {
+                    echo "WaterMark: " . $produto->getWaterMark();
+                }
+                ?>
+            </td>
             <td><a href="produto-altera-formulario.php?id=<?= $produto->getId() ?>" 
                    class="btn btn-primary">alterar</td>
             <td>

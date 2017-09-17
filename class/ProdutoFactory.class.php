@@ -20,7 +20,10 @@ class ProdutoFactory {
         $nome = $params['nome'];
         $preco = $params['preco'];
         $descricao = $params['descricao'];
+        
         $categoria = new Categoria();
+        $categoria->setId($params['categoria_id']);
+        $categoria->setNome($params['categoria_nome']);
         $usado = $params['usado'];
 
 //testando se o $tipoProduto existe no array $classes

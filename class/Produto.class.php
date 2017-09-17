@@ -20,9 +20,8 @@ class Produto {
     private $categoria;
     private $usado;
     private $tipoProduto;
-    
-    
-        function __construct($nome, $preco, $descricao, Categoria $categoria, $usado) {
+
+    function __construct($nome, $preco, $descricao, Categoria $categoria, $usado) {
         $this->nome = $nome;
         $this->preco = $preco;
         $this->descricao = $descricao;
@@ -70,7 +69,6 @@ class Produto {
         $this->usado = $usado;
     }
 
-
     public function setTipoProduto($tipoProduto) {
         $this->tipoProduto = $tipoProduto;
     }
@@ -103,14 +101,13 @@ class Produto {
             $this->setTaxaImpressao($params["taxaImpressao"]);
         }
     }
-    
-    
+
     function temWaterMark() {
         return $this instanceof Ebook;
     }
 
-    function temTaxaImpressao(){
-         return $this instanceof LivroFisico;
+    function temTaxaImpressao() {
+        return $this instanceof LivroFisico;
     }
 
 }
