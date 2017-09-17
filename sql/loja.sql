@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 27, 2017 at 05:10 PM
+-- Generation Time: Sep 17, 2017 at 05:24 PM
 -- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -54,19 +54,21 @@ CREATE TABLE `produtos` (
   `preco` decimal(10,2) DEFAULT NULL,
   `descricao` text,
   `categoria_id` int(11) DEFAULT NULL,
-  `usado` tinyint(1) DEFAULT '0'
+  `usado` tinyint(1) DEFAULT '0',
+  `isbn` varchar(255) DEFAULT NULL,
+  `tipoProduto` varchar(255) DEFAULT NULL,
+  `waterMark` varchar(255) DEFAULT NULL,
+  `taxaImpressao` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `produtos`
 --
 
-INSERT INTO `produtos` (`id`, `nome`, `preco`, `descricao`, `categoria_id`, `usado`) VALUES
-(4, 'lapis', '1.00', 'descricao do lapis', 1, 1),
-(5, 'chocolate ao leite', '1.00', 'chocolate ao leite gostoso', 1, 0),
-(6, 'Prancha de surfe', '100.00', 'Prancha de surfe', 1, 0),
-(7, 'prancha de surfe', '2.00', 'minha prancha de surfe', 2, 1),
-(11, 'produto usado', '12.00', 'um produto usado qualquer', 1, 0);
+INSERT INTO `produtos` (`id`, `nome`, `preco`, `descricao`, `categoria_id`, `usado`, `isbn`, `tipoProduto`, `waterMark`, `taxaImpressao`) VALUES
+(24, 'Livro fisico', '12.00', '34', 1, 0, '12345', 'LivroFisico', '', '54'),
+(25, 'Ebook', '87.00', '555', 1, 0, '987654', 'Ebook', '6666', ''),
+(26, 'Produto', '8.00', '555', 2, 1, '', 'Produto', '', '');
 
 -- --------------------------------------------------------
 
@@ -118,16 +120,19 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
