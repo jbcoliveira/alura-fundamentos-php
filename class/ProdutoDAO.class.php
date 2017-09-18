@@ -60,8 +60,8 @@ class ProdutoDAO {
                 . " isbn='" . escapeQuery($this->conexao, $isbn) . "', "
                 . " watermark='" . escapeQuery($this->conexao, $watermark) . "', "
                 . " taxaImpressao='" . escapeQuery($this->conexao, $taxaImpressao) . "', "
-                . " tipoProduto='" . escapeQuery($this->conexao, $produto->getTipoProduto()) . "', "
-                . "where id = {$produto->getId()} ";
+                . " tipoProduto='" . escapeQuery($this->conexao, $produto->getTipoProduto()) . "' "
+                . " where id = {$produto->getId()} ";
         return mysqli_query($this->conexao, $query);
     }
 
@@ -88,12 +88,11 @@ class ProdutoDAO {
             $produto->setTipoProduto($tipoProduto);
 
             if ($produto->temIsbn()) {
-               $produto->setIsbn($produto_array['isbn']);
+                $produto->setIsbn($produto_array['isbn']);
             }
-            
+
             if ($tipoProduto == "LivroFisico") {
                 $produto->setTaxaImpressao($produto_array['taxaImpressao']);
-                
             } elseif ($tipoProduto == "Ebook") {
                 $produto->setWatermark($produto_array['waterMark']);
             }
@@ -107,6 +106,7 @@ class ProdutoDAO {
     }
 
     function buscaProduto($id) {
+/*
         $query = "select * from produtos where id = {$id}";
         $resultado = mysqli_query($this->conexao, $query);
 
@@ -120,16 +120,59 @@ class ProdutoDAO {
         $descricao = $produto_array['descricao'];
         $usado = $produto_array['usado'];
         $tipoProduto = $produto_array['tipoProduto'];
-        $isbn = $produto_array['isbn'];
 
-        if ($tipoProduto == "Livro") {
-            $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
-            $produto->setIsbn($isbn);
-        } else {
-            $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+
+        $isbn = "";
+        $watermark = "";
+        $taxaImpressao = "";
+        if ($produto->temIsbn()) {
+            $isbn = $produto->getIsbn();
+        }
+        if (get_class($produto) == "LivroFisico") {
+            $taxaImpressao = $produto->getTaxaImpressao();
+        }
+        if (get_class($produto) == "Ebook") {
+            $watermark = $produto->getWaterMark();
         }
 
         $produto->setId($produto_array['id']);
+
+
+        return $produto;
+
+*/
+
+        ///
+
+        $query = "select p.*,c.nome as categoria_nome "
+                . "from produtos p join categorias c"
+                . " on c.id = p.categoria_id where p.id = {$id}" ;
+        $resultado = mysqli_query($this->conexao, $query);
+
+        $produto_array = mysqli_fetch_assoc($resultado);
+
+
+        $categoria = new Categoria();
+        $categoria->setId($produto_array['categoria_id']);
+
+        $tipoProduto = $produto_array['tipoProduto'];
+
+        $factory = new ProdutoFactory();
+        $produto = $factory->criaPor($tipoProduto, $produto_array);
+        $produto->setTipoProduto($tipoProduto);
+
+        if ($produto->temIsbn()) {
+            $produto->setIsbn($produto_array['isbn']);
+        }
+
+        if ($tipoProduto == "LivroFisico") {
+            $produto->setTaxaImpressao($produto_array['taxaImpressao']);
+        } elseif ($tipoProduto == "Ebook") {
+            $produto->setWatermark($produto_array['waterMark']);
+        }
+
+        $produto->setId($produto_array['id']);
+
 
 
         return $produto;

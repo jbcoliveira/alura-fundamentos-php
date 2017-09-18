@@ -23,8 +23,14 @@ class ProdutoFactory {
         
         $categoria = new Categoria();
         $categoria->setId($params['categoria_id']);
-        $categoria->setNome($params['categoria_nome']);
-        $usado = $params['usado'];
+        
+        array_key_exists('categoria_nome', $params) == true ? 
+                $categoria->setNome($params['categoria_nome']) : $categoria->setNome(NULL);
+       
+        
+        array_key_exists('usado', $params) == true ? 
+                $usado = $params['usado'] : $usado = 0;
+                       
 
 //testando se o $tipoProduto existe no array $classes
         if (in_array($tipoProduto, $this->classes)) {

@@ -26,11 +26,11 @@ $produto->setTipoProduto($tipoProduto);
 $produtoDao = new ProdutoDAO($conexao);
 
 if ($produtoDao->insereProduto($produto)) {
-    mensagem('success', 'O produto' . $produto->getNome() . ' com o valor ' . $produto->getPreco() . ' adicionado com sucesso!');
+    mensagem('success', 'O produto ' . $produto->getNome() . ' com o valor R$' . $produto->getPreco() . ' adicionado com sucesso!');
 } else {
     $msg = mysqli_error($produtoDao->getConexao());
 
-    mensagem('danger', 'O produto' . $nome . ' não foi adicionado. Erro: ' . $msg);
+    mensagem('danger', 'O produto ' . $produto->getNome() . ' não foi adicionado. Erro: ' . $msg);
 }
 ?>
 
