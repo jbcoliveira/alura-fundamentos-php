@@ -13,7 +13,7 @@
  */
 class ProdutoFactory {
 
-    private $classes = array("Produto", "Ebook", "LivroFisico");
+    private $classes = array("Ebook", "LivroFisico");
 
     public function criaPor($tipoProduto, $params) {
         //extraindo os valores 
@@ -39,7 +39,7 @@ class ProdutoFactory {
         }
 
 //se nao encontramos nada, vamos criar um produto: 
-        return new Produto($nome, $preco, $descricao, $categoria, $usado);
+        return new LivroFisico($nome, $preco, $descricao, $categoria, $usado);
     }
 
 }

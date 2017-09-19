@@ -8,7 +8,7 @@ verificaUsuario();
 $categoria = new Categoria();
 $categoria->setId(1);
 
-$produto = new Produto("","","",$categoria,"");
+$produto = new LivroFisico("","","",$categoria,"");
 
 $categorias = listaCategorias($conexao);
 $checked = "";

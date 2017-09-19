@@ -11,15 +11,21 @@
  *
  * @author joao
  */
-class Ebook extends Livro{
+class Ebook extends Livro {
+
     private $waterMark;
-    
+
     function getWaterMark() {
         return $this->waterMark;
     }
 
     function setWaterMark($waterMark) {
         $this->waterMark = $waterMark;
+    }
+
+    public function atualizaBaseadoEm($params) {
+        $this->setIsbn($params["isbn"]);
+        $this->setWaterMark($params["waterMark"]);
     }
 
 }
